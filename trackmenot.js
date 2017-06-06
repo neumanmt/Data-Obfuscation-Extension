@@ -38,8 +38,8 @@ TRACKMENOT.TMNSearch = function() {
     var engine = 'google';
     var TMNQueries = {};
     var branch = "extensions.trackmenot."
-    var user_age = 24;
-    var user_gender = 'F'
+    var user_age = 35;
+    var user_gender = 'M'
     var feedList = 'https://trends.google.com/trends/hottrends/atom/feed?pn=p1|';
     if (user_age < 25) {
       if (user_gender == 'M')  {feedList += 'https://www.reddit.com/r/news/.rss|https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw'}
@@ -54,7 +54,8 @@ TRACKMENOT.TMNSearch = function() {
       else                        feedList += 'http://rss.cnn.com/rss/cnn_topstories.rss|http://www.huffingtonpost.com/feeds/index.xml'
     }
     else {
-      feedList += 'http://feeds.foxnews.com/foxnews/latest?format=xml'
+      if (user_gender == 'M')  feedList += 'http://www.espn.com/espn/rss/news|http://feeds.foxnews.com/foxnews/latest?format=xml'
+      else                        feedList += 'http://feeds.foxnews.com/foxnews/latest?format=xml|http://www.aarpinternational.org//home/rss-feeds?locFeedID=12'
     }
     var tmnLogs = [];
     var disableLogs = false;
