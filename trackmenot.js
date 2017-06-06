@@ -39,22 +39,22 @@ TRACKMENOT.TMNSearch = function() {
     var TMNQueries = {};
     var branch = "extensions.trackmenot."
     var user_age = 24;
-    var user_gender = 'male'
-    var feedList = '';
+    var user_gender = 'F'
+    var feedList = 'https://trends.google.com/trends/hottrends/atom/feed?pn=p1|';
     if (user_age < 25) {
-      if (user_gender == 'male')  feedList = 'https://www.reddit.com/r/news/.rss|https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw'
-      else                        feedList = 'https://cosmosmagazine.com/feed.rss|https://www.buzzfeed.com/news.xml|https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw'
+      if (user_gender == 'M')  {feedList += 'https://www.reddit.com/r/news/.rss|https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw'}
+      else                        {feedList += 'https://cosmosmagazine.com/feed.rss|https://www.buzzfeed.com/news.xml|https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw'}
     }
     else if (user_age < 45) {
-      if (user_gender == 'male')  feedList = 'https://www.reddit.com/r/news/.rss|http://www.npr.org/rss/rss.php?id=1001'
-      else                        feedList = 'https://www.buzzfeed.com/news.xml|http://www.huffingtonpost.com/feeds/index.xml|http://www.npr.org/rss/rss.php?id=1001'
+      if (user_gender == 'M')  feedList += 'https://www.reddit.com/r/news/.rss|http://www.npr.org/rss/rss.php?id=1001'
+      else                        feedList += 'https://www.buzzfeed.com/news.xml|http://www.huffingtonpost.com/feeds/index.xml|http://www.npr.org/rss/rss.php?id=1001'
     }
     else if (user_age < 65) {
-      if (user_gender == 'male')  feedList = 'http://rss.cnn.com/rss/cnn_topstories.rss|http://www.wsj.com/xml/rss/3_7085.xml|http://www.economist.com/feeds/print-sections/71/united-states.xml|http://feeds.foxnews.com/foxnews/latest?format=xml'
-      else                        feedList = 'http://rss.cnn.com/rss/cnn_topstories.rss|http://www.huffingtonpost.com/feeds/index.xml'
+      if (user_gender == 'M')  feedList += 'http://rss.cnn.com/rss/cnn_topstories.rss|http://www.wsj.com/xml/rss/3_7085.xml|http://www.economist.com/feeds/print-sections/71/united-states.xml|http://feeds.foxnews.com/foxnews/latest?format=xml'
+      else                        feedList += 'http://rss.cnn.com/rss/cnn_topstories.rss|http://www.huffingtonpost.com/feeds/index.xml'
     }
     else {
-      feedList = 'http://feeds.foxnews.com/foxnews/latest?format=xml'
+      feedList += 'http://feeds.foxnews.com/foxnews/latest?format=xml'
     }
     var tmnLogs = [];
     var disableLogs = false;
@@ -63,12 +63,13 @@ TRACKMENOT.TMNSearch = function() {
     var useBlackList = true;
     var useDHSList = false;
     var typeoffeeds = [];
-    var zeitgeist = ["facebook", "youtube", "myspace", "craigslist", "ebay", "yahoo", "walmart", "netflix", "amazon", "home depot", "best buy", "Kentucky Derby", "NCIS", "Offshore Drilling", "Halle Berry", "iPad Cases", "Dorothy Provine", "Emeril", "Conan O'Brien", "Blackberry", "Free Comic Book Day", " American Idol", "Palm", "Montreal Canadiens", "George Clooney", "Crib Recall", "Auto Financing", "Katie Holmes", "Madea's Big Happy Family", "Old Navy Coupon", "Sandra Bullock", "Dancing With the Stars", "M.I.A.", "Matt Damon", "Santa Clara County", "Joey Lawrence", "Southwest Airlines", "Malcolm X", "Milwaukee Bucks", "Goldman Sachs", "Hugh Hefner", "Tito Ortiz", "David McLaughlin", "Box Jellyfish", "Amtrak", "Molly Ringwald", "Einstein Horse", "Oil Spill", " Bret Michaels", "Mississippi Tornado", "Stephen Hawking", "Kelley Blue Book", "Hertz", "Mariah Carey", "Taiwan Earthquake", "Justin Bieber", "Public Bike Rental", "BlackBerry Pearl", "NFL Draft", "Jillian Michaels", "Face Transplant", "Dell", "Jack in the Box", "Rebbie Jackson", "Xbox", "Pampers", "William Shatner", "Earth Day", "American Idol", "Heather Locklear", "McAfee Anti-Virus", "PETA", "Rihanna", "South Park", "Tiger Woods", "Kate Gosselin", "Unemployment", "Dukan Diet", "Oil Rig Explosion", "Crystal Bowersox", "New 100 Dollar Bill", "Beastie Boys", "Melanie Griffith", "Borders", "Tara Reid", "7-Eleven", "Dorothy Height", "Volcanic Ash", "Space Shuttle Discovery", "Gang Starr", "Star Trek", "Michael Douglas", "NASCAR", "Isla Fisher", "Beef Recall", "Rolling Stone Magazine", "ACM Awards", "NASA Space Shuttle", "Boston Marathon", "Iraq", "Jennifer Aniston"]
+    var zeitgeist = []
+    var zeitgeist0 = ["facebook", "youtube", "myspace", "craigslist", "ebay", "yahoo", "walmart", "netflix", "amazon", "home depot", "best buy", "Kentucky Derby", "NCIS", "Offshore Drilling", "Halle Berry", "iPad Cases", "Dorothy Provine", "Emeril", "Conan O'Brien", "Blackberry", "Free Comic Book Day", " American Idol", "Palm", "Montreal Canadiens", "George Clooney", "Crib Recall", "Auto Financing", "Katie Holmes", "Madea's Big Happy Family", "Old Navy Coupon", "Sandra Bullock", "Dancing With the Stars", "M.I.A.", "Matt Damon", "Santa Clara County", "Joey Lawrence", "Southwest Airlines", "Malcolm X", "Milwaukee Bucks", "Goldman Sachs", "Hugh Hefner", "Tito Ortiz", "David McLaughlin", "Box Jellyfish", "Amtrak", "Molly Ringwald", "Einstein Horse", "Oil Spill", " Bret Michaels", "Mississippi Tornado", "Stephen Hawking", "Kelley Blue Book", "Hertz", "Mariah Carey", "Taiwan Earthquake", "Justin Bieber", "Public Bike Rental", "BlackBerry Pearl", "NFL Draft", "Jillian Michaels", "Face Transplant", "Dell", "Jack in the Box", "Rebbie Jackson", "Xbox", "Pampers", "William Shatner", "Earth Day", "American Idol", "Heather Locklear", "McAfee Anti-Virus", "PETA", "Rihanna", "South Park", "Tiger Woods", "Kate Gosselin", "Unemployment", "Dukan Diet", "Oil Rig Explosion", "Crystal Bowersox", "New 100 Dollar Bill", "Beastie Boys", "Melanie Griffith", "Borders", "Tara Reid", "7-Eleven", "Dorothy Height", "Volcanic Ash", "Space Shuttle Discovery", "Gang Starr", "Star Trek", "Michael Douglas", "NASCAR", "Isla Fisher", "Beef Recall", "Rolling Stone Magazine", "ACM Awards", "NASA Space Shuttle", "Boston Marathon", "Iraq", "Jennifer Aniston"]
     var tmn_timeout = 6000;
     var prev_engine = "None"
-    var burstEngine = '';
-    var burstTimeout = 6000;
-    var burstEnabled = false;
+    var burstEngine = 'google';
+    var burstTimeout = 9000;
+    var burstEnabled = true;
     var tmn_searchTimer = null;
     var burstCount = 0;
     var tmn_id = 0;
@@ -464,6 +465,10 @@ TRACKMENOT.TMNSearch = function() {
 
     function roll(min, max) {
         return Math.floor(Math.random() * (max + 1)) + min;
+    }
+
+    function geom(p) {
+        return Math.log(Math.random())/Math.log(1-p);
     }
 
     function randomElt(array) {
@@ -874,7 +879,7 @@ TRACKMENOT.TMNSearch = function() {
             else {
                 newquery = getQuery();
                 queryWords = newquery.split(' ');
-                if (queryWords.length > 3) {
+                /*if (queryWords.length > 3) {
                     getSubQuery(queryWords);
                     if (useIncrementals) {
                         var unsatisfiedNumber = roll(1, 4);
@@ -884,7 +889,7 @@ TRACKMENOT.TMNSearch = function() {
                     // not sure what is going on here? -dch
                     if (incQueries && incQueries.length > 0)
                         newquery = incQueries.pop();
-                }
+                }*/
                 sendQuery(newquery);
             }
         } catch (e) {
@@ -983,13 +988,14 @@ TRACKMENOT.TMNSearch = function() {
 
 
     function rescheduleOnError() {
-        var pauseAfterError = Math.max(2 * tmn_timeout, 60000);
+        var pauseAfterError = 1000;
+        //Math.max(2 * tmn_timeout, 10000);
         tmn_mode = 'recovery';
         burstCount = 0;
-        cout("[INFO] Trying again in " + (pauseAfterError / 1000) + "s")
+        cout("[INFO] Trying again in " + pauseAfterError + "s")
         log({
             'type': 'ERROR',
-            'message': 'next search in ' + (pauseAfterError / 1000) + "s",
+            'message': 'next search in ' + pauseAfterError + "s",
             'engine': engine
         });
         updateOnErr();
@@ -1024,7 +1030,8 @@ TRACKMENOT.TMNSearch = function() {
                 var offset = delay * (Math.random() / 2);
                 delay = parseInt(delay) + offset;
             } else { // just simple randomize during a burst
-                delay += delay * (Math.random() - .5);
+                //delay += delay * (Math.random() - .5);
+                delay = Math.ceiling(geom(1/12) * 1000); // delay set to five seconds for testing purposes
             }
         }
         prev_engine = engine;
@@ -1045,7 +1052,7 @@ TRACKMENOT.TMNSearch = function() {
         };
         log(logMessage);
         burstEngine = burst_engine;
-        burstCount = roll(3, 10);
+        burstCount = Math.ceiling(geom(0.2));
     }
 
     function deleteTabWithUrl(tabURL) {
@@ -1090,9 +1097,10 @@ TRACKMENOT.TMNSearch = function() {
 
     function initOptions() {
         enabled = true;
-        timeout = 6000;
+        timeout = 3000;
         burstMode = true;
-        searchEngines = "google,yahoo,bing";
+        searchEngines = "google"
+        //searchEngines = "google,yahoo,bing";
         useTab = false;
         useBlackList = true;
         useDHSList = false;
